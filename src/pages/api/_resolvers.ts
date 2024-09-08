@@ -2,7 +2,7 @@ import { GraphQLContext, ICardArgs } from "./_types";
 
 const resolvers = {
   Query: {
-    card: async (
+    cards: async (
       parent: unknown,
       { page, limit, ...params }: ICardArgs,
       context: GraphQLContext

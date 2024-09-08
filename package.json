@@ -9,9 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@fastify/nextjs": "^10.0.1",
     "@graphql-tools/schema": "^10.0.6",
-    "fastify": "^4.28.1",
+    "axios": "^1.7.7",
     "graphql": "^16.9.0",
     "graphql-helix": "^1.13.0",
     "graphql-import-node": "^0.0.5",

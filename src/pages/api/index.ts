@@ -1,11 +1,17 @@
-import fastify from "fastify";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import router from "./_router";
 
-const app = fastify();
-router(app);
-
 export default async function handler(request: VercelRequest, response: VercelResponse) {
-  await app.ready();
-  app.server.emit("request", request, response);
+  const route = router.find((route) => {
+    return route.path.includes(request.url!) && route.method === request.method;
+  });
+
+  if (route) {
+    return await route.handler(request, response);
+  }
+
+  response.status(404).json({
+    status: 404,
+    message: "404 route not found",
+  });
 }

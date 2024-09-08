@@ -1,4 +1,3 @@
-import { FastifyInstance } from "fastify";
 import {
   getGraphQLParameters,
   processRequest,
@@ -7,38 +6,53 @@ import {
   shouldRenderGraphiQL,
 } from "graphql-helix";
 import schema from "./_schema";
+import { VercelRequest, VercelResponse } from "@vercel/node";
+import contextFactory from "./_context";
 
-export default function router(server: FastifyInstance) {
-  server.get("/api", (request, response) => {
-    response.send({
-      active: true,
-      system: "yu-gi-oh-serveless",
-      region: process.env.VERCEL_REGION ?? "Não indentificada",
-    });
-  });
+const router = [
+  {
+    path: "/api",
+    method: "GET",
+    handler: async (request: VercelRequest, response: VercelResponse) => {
+      response.json({
+        active: true,
+        system: "yu-gi-oh-serveless",
+        region: process.env.VERCEL_REGION ?? "Não indentificada",
+      });
+    },
+  },
+  {
+    path: "/api/graphql",
+    method: "GET",
+    handler: async (request: VercelRequest, response: VercelResponse) => {
+      if (shouldRenderGraphiQL(request as any)) {
+        response.setHeader("Content-Type", "text/html");
+        response.send(
+          renderGraphiQL({
+            endpoint: "/api",
+          })
+        );
+      }
+    },
+  },
+  {
+    path: "/api/graphql",
+    method: "POST",
+    handler: async (request: VercelRequest, response: VercelResponse) => {
+      const { operationName, query, variables } = getGraphQLParameters(request as any);
 
-  server.get("/api/graphql", (request, response) => {
-    if (shouldRenderGraphiQL(request)) {
-      response.header("Content-Type", "text/html");
-      response.send(
-        renderGraphiQL({
-          endpoint: "/graphql",
-        })
-      );
-    }
-  });
+      const result = await processRequest({
+        request: request as any,
+        schema,
+        operationName,
+        query,
+        variables,
+        contextFactory,
+      });
 
-  server.post("/graphql", async (request, response) => {
-    const { operationName, query, variables } = getGraphQLParameters(request);
+      sendResult(result, response);
+    },
+  },
+];
 
-    const result = await processRequest({
-      request,
-      schema,
-      operationName,
-      query,
-      variables,
-    });
-
-    sendResult(result, response.raw);
-  });
-}
+export default router;

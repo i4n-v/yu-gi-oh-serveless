@@ -2,9 +2,11 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import router from "./_router";
 
 export default async function handler(request: VercelRequest, response: VercelResponse) {
-  console.log(request.url);
   const route = router.find((route) => {
-    return route.path.includes(request.url!) && route.method === request.method;
+    if (request.url) {
+      const path = request.url.split("?")[0];
+      return route.path.includes(path) && route.method === request.method;
+    }
   });
 
   if (route) {

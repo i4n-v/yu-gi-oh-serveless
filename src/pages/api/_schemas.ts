@@ -1,8 +1,10 @@
 const typeDefs = `
   type Query {
     card(
-      name: String,
+      page: Int,
+      limit: Int,
       id: Int,
+      name: String,
       type: String,
       atk: Int,
       def: Int,

@@ -5,6 +5,8 @@ type GraphQLContext = {
 };
 
 interface ICardArgs {
+  page?: number;
+  limit?: number;
   id?: number;
   name?: string;
   type?: string;

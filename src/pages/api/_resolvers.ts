@@ -25,7 +25,7 @@ const resolvers = {
         items: cards,
         totalPages,
         totalItems,
-        currentPage: page,
+        currentPage: page ?? 0,
       };
     },
   },

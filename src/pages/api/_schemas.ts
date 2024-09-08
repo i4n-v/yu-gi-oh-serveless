@@ -1,6 +1,6 @@
 const typeDefs = `
   type Query {
-    card(
+    cards(
       page: Int,
       limit: Int,
       id: Int,
@@ -16,7 +16,14 @@ const typeDefs = `
       banlist: String,
       sort: String,
       has_effect: Boolean,
-    ): [Card]!
+    ): PaginatedCards!
+  }
+
+  type PaginatedCards {
+    items: [Card]!
+    totalPages: Int!
+    totalItems: Int!
+    currentPage: Int!
   }
 
   type Card {

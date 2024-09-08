@@ -9,15 +9,15 @@ import {
 import schema from "./_schema";
 
 export default function router(server: FastifyInstance) {
-  server.get("/", (request, response) => {
+  server.get("/api", (request, response) => {
     response.send({
       active: true,
       system: "yu-gi-oh-serveless",
-      region: process.env.VERCEL_REGION,
+      region: process.env.VERCEL_REGION ?? "Não indentificada",
     });
   });
 
-  server.get("/graphql", (request, response) => {
+  server.get("/api/graphql", (request, response) => {
     if (shouldRenderGraphiQL(request)) {
       response.header("Content-Type", "text/html");
       response.send(

@@ -5,6 +5,7 @@ const typeDefs = `
       limit: Int,
       id: Int,
       name: String,
+      fname: String,
       type: String,
       atk: Int,
       def: Int,
@@ -34,11 +35,11 @@ const typeDefs = `
     humanReadableCardType: String!
     frameType: String!
     desc: String!
-    race: String!
-    atk: Int!
-    def: Int!
-    level: Int!
-    attribute: String!
+    race: String
+    atk: Int
+    def: Int
+    level: Int
+    attribute: String
     ygoprodeck_url: String!
     card_sets: [CardSet]
     card_images: [CardImages]!

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { graphQLClient } from "@/lib/graphql-client";
-import { ICardArgs } from "./types";
+import { ICardArgs } from "../pages/api/_types";
 import { Transition } from "@headlessui/react";
 
 const query = `

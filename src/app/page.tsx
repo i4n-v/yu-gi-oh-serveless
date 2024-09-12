@@ -128,7 +128,7 @@ export default function GraphQLRequest() {
           </Transition>
         </div>
       )}
-      <div className="flex flex-wrap mt-[5%] justify-center w-4/6 gap-4 max-h-[80%]">
+      <div className="flex flex-wrap lg:mt-[10%] min-[1800px]:mt-[5%] min-[1400px]:mt-[7%] md:mt-[10%] sm:mt-[15%] min-[320px]:mt-[20%] justify-center w-4/6 gap-4 max-h-[80%]">
         {cards?.map((card, index) => (
           <Transition
             key={index}

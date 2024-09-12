@@ -200,7 +200,7 @@ export default function GraphQLRequest() {
                 Fechar
               </button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
               <div className="flex justify-center items-center ">
                 <img
                   src={selectedCard?.card_images?.[0]?.image_url}

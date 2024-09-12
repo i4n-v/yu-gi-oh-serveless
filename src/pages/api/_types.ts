@@ -37,4 +37,4 @@ interface ICardArgs {
   has_effect?: boolean;
 }
 
-export type { ICardArgs, GraphQLContext };
+export type { GraphQLContext, ICardArgs };

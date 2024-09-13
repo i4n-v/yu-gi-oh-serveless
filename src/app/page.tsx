@@ -39,7 +39,7 @@ export default function GraphQLRequest() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const getCards = async (page:number) => {
+  const getCards = async (page: number) => {
     const variables = {
       page: page,
       limit: 10,
@@ -79,7 +79,7 @@ export default function GraphQLRequest() {
   }, [cards]);
 
   useEffect(() => {
-    if(page > 1){
+    if (page <= totalPages) {
       getCards(page);
     }
   }, [page]);
@@ -105,8 +105,8 @@ export default function GraphQLRequest() {
         />
         <button
           onClick={() => {
-            setPage(1)
-            getCards(1)
+            setPage(1);
+            getCards(1);
           }}
           className="px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
         >
@@ -176,9 +176,7 @@ export default function GraphQLRequest() {
           <button
             disabled={page === totalPages}
             className={`px-4 py-2 bg-blue-500 text-white rounded-lg transition ${
-              page === totalPages
-                ? "opacity-50 cursor-not-allowed"
-                : "hover:bg-blue-600"
+              page === totalPages ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
             }`}
             onClick={() => {
               setPage(page + 1);
@@ -206,24 +204,19 @@ export default function GraphQLRequest() {
                   src={selectedCard?.card_images?.[0]?.image_url}
                   alt={selectedCard.name}
                   onMouseOver={({ currentTarget }) => {
-                    currentTarget.src =
-                      selectedCard?.card_images?.[0]?.image_url_cropped!;
+                    currentTarget.src = selectedCard?.card_images?.[0]?.image_url_cropped!;
                   }}
                   onMouseLeave={({ currentTarget }) => {
-                    currentTarget.src =
-                      selectedCard?.card_images?.[0]?.image_url!;
+                    currentTarget.src = selectedCard?.card_images?.[0]?.image_url!;
                   }}
                   className="w-full h-auto object-cover hover:scale-105 sm:hover:scale-115 md:hover:scale-[1.55]  md:hover:mt-28 max-h-[100%] md:max-w-md sm:max-w-xs"
                 />
               </div>
               <div className="flex flex-col md:gap-y-10 sm:gap-y-1 text-black">
-                <h2 className="text-2xl font-bold text-center mb-2">
-                  {selectedCard.name}
-                </h2>
+                <h2 className="text-2xl font-bold text-center mb-2">{selectedCard.name}</h2>
                 <div className="flex justify-between">
                   <div>
-                    <span className="font-semibold">Type:</span>{" "}
-                    {selectedCard.type}
+                    <span className="font-semibold">Type:</span> {selectedCard.type}
                   </div>
                   <div>
                     <span className="font-semibold">Market Price:</span>
@@ -235,24 +228,19 @@ export default function GraphQLRequest() {
                 {selectedCard?.type?.toLowerCase().includes("monster") && (
                   <div className="grid grid-cols-2 gap-4 mb-2">
                     <div>
-                      <span className="font-semibold">ATK:</span>{" "}
-                      {selectedCard.atk}
+                      <span className="font-semibold">ATK:</span> {selectedCard.atk}
                     </div>
                     <div>
-                      <span className="font-semibold">DEF:</span>{" "}
-                      {selectedCard.def}
+                      <span className="font-semibold">DEF:</span> {selectedCard.def}
                     </div>
                     <div>
-                      <span className="font-semibold">Level:</span>{" "}
-                      {selectedCard.level}
+                      <span className="font-semibold">Level:</span> {selectedCard.level}
                     </div>
                     <div>
-                      <span className="font-semibold">Race:</span>{" "}
-                      {selectedCard.race}
+                      <span className="font-semibold">Race:</span> {selectedCard.race}
                     </div>
                     <div>
-                      <span className="font-semibold">Attribute:</span>{" "}
-                      {selectedCard.attribute}
+                      <span className="font-semibold">Attribute:</span> {selectedCard.attribute}
                     </div>
                   </div>
                 )}
